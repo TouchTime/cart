@@ -39,6 +39,7 @@ const Cart = () => {
 
       <div className="cart-list">
         <input type="checkbox" />
+        <span className="cart-name">全选</span>
         <span className="cart-name">总金额： {totalPrice}</span>
         <div className="cart-count">结算</div>
       </div>
