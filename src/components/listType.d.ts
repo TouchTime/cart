@@ -12,4 +12,15 @@ export interface ItemProps {
 
 export interface IpProps {
   item: ItemProps
+  checkAll: boolean
+  chooseBox:Function
+  index:number
+  
+ 
+}
+
+export interface ChoosePProps {
+  target: {
+     checked: boolean 
+  } 
 }
