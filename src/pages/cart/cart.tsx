@@ -9,6 +9,9 @@ import { ItemProps } from "../../components/listType";
 import "../../assets/main.css";
 
 const Cart = () => {
+  /**
+   * 列表数据
+   */
   const [list, setList] = useState<Array<ItemProps>>([
     {
       name: "西瓜",
@@ -26,11 +29,20 @@ const Cart = () => {
       isChecked: false,
     },
   ]);
-
+  /**
+   * 总金额
+   */
   const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  console.log(list);
-
+  /**
+   * 全选状态 0:未选中  1：选中
+   */
+  const [checkAll, setcheckAll] = useState<number>(0);
+  /**
+   * 全选事件
+   */
+  const selectAll = (event) => {
+    console.log(event);
+  };
   return (
     <div>
       {list.map((item, index) => {
@@ -38,7 +50,11 @@ const Cart = () => {
       })}
 
       <div className="cart-list">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          value={checkAll}
+          onChange={(event) => selectAll(event)}
+        />
         <span className="cart-name">全选</span>
         <span className="cart-name">总金额： {totalPrice}</span>
         <div className="cart-count">结算</div>
