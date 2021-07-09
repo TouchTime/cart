@@ -12,7 +12,7 @@ export interface ItemProps {
 
 export interface IpProps {
   list: Array<ItemProps>;
-  checkAll: boolean
+  checkedAll: boolean
   totalPrice: number
 }
 
@@ -20,4 +20,12 @@ export interface ChoosePProps {
   target: {
      checked: boolean 
   } 
+}
+
+export interface RdeuceProps {
+  list:Array<ItemProps>;
+  type?:string
+  totalPrice: number
+  checkedAll: boolean
+
 }

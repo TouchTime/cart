@@ -8,11 +8,11 @@ import { useState, useEffect, useContext, useRef, useMemo } from "react";
 import { IpProps, ItemProps, ChoosePProps } from "./listType";
 import { CartContext } from "../pages/cart/cartConext";
 
-const CartList = ({ checkAll, list, totalPrice }: IpProps) => {
+const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
   /**
-   * 共享数据 全选状态、列表数据
+   * 共享数据
    */
-  let { setCheckAll, setList, setTotalPrice } = useContext(CartContext);
+  let { setcheckedAll, setList, setTotalPrice } = useContext(CartContext);
   /**
    * 复选框勾选事件
    */
@@ -34,44 +34,21 @@ const CartList = ({ checkAll, list, totalPrice }: IpProps) => {
       }
     });
     setTotalPrice(totalPrice);
-    setCheckAll(count === list.length);
+    setcheckedAll(count === list.length);
   };
-
-  useMemo(() => {
-    if (!list) {
-      return;
-    }
-    let count = 0;
-    list.forEach((item) => {
-      if (item.isChecked) {
-        count++;
-      }
-    });
-    // 全选状态下，去掉一个勾选
-    if (count + 1 === list.length && !checkAll) {
-      return;
-    }
-    if ((count <= list.length && !checkAll) || checkAll) {
-      // 金额初始化
-      totalPrice = 0;
-      // 状态变化
-      list.forEach((item) => {
-        item.isChecked = checkAll;
-        if (checkAll) {
-          totalPrice += item.price;
-        }
-      });
-      setTotalPrice(totalPrice);
-      setList([...list]);
-    }
-  }, [checkAll]);
 
   return (
     <div>
       {list &&
         list.map((item: ItemProps, index: number) => {
           return (
-            <div className="cart-list" key={index}>
+            <div
+              className="cart-list"
+              key={index}
+              onClick={() => {
+                console.log(45545);
+              }}
+            >
               <input
                 type="checkbox"
                 checked={item.isChecked}

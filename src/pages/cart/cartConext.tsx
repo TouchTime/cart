@@ -6,7 +6,7 @@
 import * as React from "react";
 
 export const CartContext = React.createContext({
-  setCheckAll: (item: any) => {},
+  setcheckedAll: (item: any) => {},
   setList: (item: any) => {},
   setTotalPrice: (item: any) => {},
 });
