@@ -20,11 +20,6 @@ const Count = (props: { count: number }) => {
     setCount(num.current);
   };
 
-  let result: unknown;
-  if (typeof result === "number") {
-    result.toFixed(); // 此处 hover result 提示类型是 number，不会提示错误
-  }
-
   return (
     <div>
       <button type="button" onClick={() => setNum(num.current)}>

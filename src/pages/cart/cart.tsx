@@ -45,30 +45,11 @@ const Cart = () => {
     setCheckAll(event.target.checked);
   };
 
-  const chooseBox = (item: ItemProps, index: number) => {
-    list[index] = item;
-    let count = 0;
-    list.forEach((item) => {
-      if (item.isChecked) {
-        count++;
-      }
-    });
-    setCheckAll(count === list.length);
-    setList(list);
-  };
   return (
     <div>
-      {list.map((item, index) => {
-        return (
-          <CartList
-            item={item}
-            key={index}
-            checkAll={checkAll}
-            chooseBox={chooseBox}
-            index={index}
-          />
-        );
-      })}
+      <CartContext.Provider value={{ setCheckAll, setList, setTotalPrice }}>
+        <CartList checkAll={checkAll} list={list} totalPrice={totalPrice} />
+      </CartContext.Provider>
 
       <div className="cart-list">
         <input

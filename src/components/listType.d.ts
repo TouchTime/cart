@@ -11,12 +11,9 @@ export interface ItemProps {
 
 
 export interface IpProps {
-  item: ItemProps
+  list: Array<ItemProps>;
   checkAll: boolean
-  chooseBox:Function
-  index:number
-  
- 
+  totalPrice: number
 }
 
 export interface ChoosePProps {
