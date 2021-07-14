@@ -37,6 +37,15 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
     setcheckedAll(count === list.length);
   };
 
+  const handleMouseDown = (event: any) => {
+    console.log(event);
+  };
+  const handleMouseMove = (event: any) => {
+    console.log(event);
+  };
+  const handleMouseUp = (event: any) => {
+    console.log(event);
+  };
   return (
     <div>
       {list &&
@@ -45,9 +54,9 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
             <div
               className="cart-list"
               key={index}
-              onClick={() => {
-                console.log(45545);
-              }}
+              onMouseDown={(event) => handleMouseDown(event)}
+              onMouseMove={(event) => handleMouseMove(event)}
+              onMouseUp={(event) => handleMouseUp(event)}
             >
               <input
                 type="checkbox"

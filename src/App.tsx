@@ -1,22 +1,30 @@
-import React, { useState } from "react";
-import Count from "./components/count";
-import "./App.css";
+/*
+ * @Description  : 路由
+ * @Author       : huyanyan
+ * @Date         : 2021-07-14 10:50:03
+ */
+import * as React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Index from "./pages/index/index";
+import Cart from "./pages/cart/cart";
+import Layout from "./components/layout/layout";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+export default () => {
   return (
-    <div className="App">
-      <button
-        onClick={() => {
-          setCount((v) => v + 1);
-        }}
-      >
-        清空
-      </button>
-      <Count count={count} />
-    </div>
+    <Layout />
+    // <Router>
+    //   <ul>
+    //     <li>
+    //       <Link to="/">首页</Link>
+    //     </li>
+    //     <li>
+    //       <li>
+    //         <Link to="/Cart/">列表</Link>
+    //       </li>
+    //     </li>
+    //   </ul>
+    //   <Route path="/" exact component={Index} />
+    //   <Route path="/Cart/" component={Cart} />
+    // </Router>
   );
-}
-
-export default App;
+};
