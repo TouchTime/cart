@@ -13,6 +13,12 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
    * 共享数据
    */
   let { setcheckedAll, setList, setTotalPrice } = useContext(CartContext);
+  const [style, setStyle] = useState({
+    width: 0,
+    height: 0,
+    clientX: 0,
+    clientY: 0,
+  });
   /**
    * 复选框勾选事件
    */
@@ -38,25 +44,51 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
   };
 
   const handleMouseDown = (event: any) => {
-    console.log(event);
+    console.log("handleMouseDown", event);
+    let styleItem = {
+      ...style,
+      clientX: event.clientX,
+      clientY: event.clientY,
+    };
+
+    setStyle(styleItem);
   };
   const handleMouseMove = (event: any) => {
-    console.log(event);
+    console.log(style);
+    if (style.clientX === 0 && style.clientY === 0) {
+      return;
+    }
+    // console.log("handleMouseMove", event);
+    let styleItem = {
+      ...style,
+      width: Math.abs(Number(event.clientX) - Number(style.clientX)),
+      height: Math.abs(Number(event.clientY) - Number(style.clientY)),
+      clientX: 0,
+      clientY: 0,
+    };
+
+    setStyle(styleItem);
   };
   const handleMouseUp = (event: any) => {
-    console.log(event);
+    console.log("handleMouseUp", event);
+  };
+
+  const startClick = (item: ItemProps, event: any) => {
+    // console.log("startClick", item, event);
   };
   return (
-    <div>
+    <div
+      onMouseDown={(event) => handleMouseDown(event)}
+      onMouseMove={(event) => handleMouseMove(event)}
+      // onMouseUp={(event) => handleMouseUp(event)}
+    >
       {list &&
         list.map((item: ItemProps, index: number) => {
           return (
             <div
               className="cart-list"
               key={index}
-              onMouseDown={(event) => handleMouseDown(event)}
-              onMouseMove={(event) => handleMouseMove(event)}
-              onMouseUp={(event) => handleMouseUp(event)}
+              onClick={(event) => startClick(item, event)}
             >
               <input
                 type="checkbox"
@@ -68,6 +100,10 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
             </div>
           );
         })}
+      <div
+        className="box"
+        style={{ width: style.width + "px", height: style.height + "px" }}
+      ></div>
     </div>
   );
 };

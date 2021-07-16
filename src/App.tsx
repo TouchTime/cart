@@ -11,20 +11,20 @@ import Layout from "./components/layout/layout";
 
 export default () => {
   return (
-    <Layout />
-    // <Router>
-    //   <ul>
-    //     <li>
-    //       <Link to="/">首页</Link>
-    //     </li>
-    //     <li>
-    //       <li>
-    //         <Link to="/Cart/">列表</Link>
-    //       </li>
-    //     </li>
-    //   </ul>
-    //   <Route path="/" exact component={Index} />
-    //   <Route path="/Cart/" component={Cart} />
-    // </Router>
+    // <Layout />
+    <Router>
+      <ul>
+        <li>
+          <Link to="/">首页</Link>
+        </li>
+        <li>
+          <li>
+            <Link to="/Cart/">列表</Link>
+          </li>
+        </li>
+      </ul>
+      <Route path="/" exact component={Index} />
+      <Route path="/Cart/" component={Cart} />
+    </Router>
   );
 };
