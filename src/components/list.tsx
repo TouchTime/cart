@@ -18,11 +18,81 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
     height: 0,
     clientX: 0,
     clientY: 0,
+    left: 0,
+    top: -44,
+    isStop: true,
   });
   /**
    * 复选框勾选事件
    */
   const chooseItem = (item: ItemProps, index: number) => {
+    handleCheck(item, index);
+  };
+
+  const handleMouseDown = (event: any) => {
+    event.preventDefault(); //阻止事件的默认行为(如在浏览器打开文件)
+    event.stopPropagation(); // 阻止事件冒泡
+    console.log("handleMouseDown", event);
+    let styleItem = {
+      ...style,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      left: event.clientX,
+      top: event.clientY - 44,
+      isStop: false,
+    };
+
+    setStyle(styleItem);
+  };
+  const handleMouseMove = (event: any) => {
+    event.preventDefault(); //阻止事件的默认行为(如在浏览器打开文件)
+    event.stopPropagation(); // 阻止事件冒泡
+    if (style.isStop) {
+      return;
+    }
+
+    let styleItem = {
+      ...style,
+      width: Math.abs(Number(event.clientX) - Number(style.left)),
+      height: Math.abs(Number(event.clientY) - Number(style.top)),
+      clientX: event.clientX,
+      clientY: event.clientY,
+    };
+    setStyle(styleItem);
+    let id = event.target.dataset.id && Number(event.target.dataset.key);
+    console.log(id);
+    if (list && list[id].isChecked) {
+      handleCheck(list[id], id);
+    }
+  };
+  const handleMouseUp = (event: any) => {
+    console.log("handleMouseUp", event);
+    startClick(event);
+  };
+  const handleMouseOut = (event: any) => {
+    console.log("handleMouseOut", event);
+    // startClick(event);
+  };
+
+  const startClick = (event: any) => {
+    event.preventDefault(); //阻止事件的默认行为(如在浏览器打开文件)
+    event.stopPropagation(); // 阻止事件冒泡
+    if (style.isStop) {
+      return;
+    }
+    let styleItem = {
+      ...style,
+      width: Math.abs(Number(event.clientX) - Number(style.left)),
+      height: Math.abs(Number(event.clientY) - Number(style.top)),
+      clientX: event.clientX,
+      clientY: event.clientY,
+      isStop: true,
+    };
+    setStyle(styleItem);
+  };
+
+  // 勾选事件
+  const handleCheck = (item: ItemProps, index: number) => {
     if (!list) {
       return;
     }
@@ -42,45 +112,12 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
     setTotalPrice(totalPrice);
     setcheckedAll(count === list.length);
   };
-
-  const handleMouseDown = (event: any) => {
-    console.log("handleMouseDown", event);
-    let styleItem = {
-      ...style,
-      clientX: event.clientX,
-      clientY: event.clientY,
-    };
-
-    setStyle(styleItem);
-  };
-  const handleMouseMove = (event: any) => {
-    console.log(style);
-    if (style.clientX === 0 && style.clientY === 0) {
-      return;
-    }
-    // console.log("handleMouseMove", event);
-    let styleItem = {
-      ...style,
-      width: Math.abs(Number(event.clientX) - Number(style.clientX)),
-      height: Math.abs(Number(event.clientY) - Number(style.clientY)),
-      clientX: 0,
-      clientY: 0,
-    };
-
-    setStyle(styleItem);
-  };
-  const handleMouseUp = (event: any) => {
-    console.log("handleMouseUp", event);
-  };
-
-  const startClick = (item: ItemProps, event: any) => {
-    // console.log("startClick", item, event);
-  };
   return (
     <div
       onMouseDown={(event) => handleMouseDown(event)}
       onMouseMove={(event) => handleMouseMove(event)}
-      // onMouseUp={(event) => handleMouseUp(event)}
+      onMouseUp={(event) => handleMouseUp(event)}
+      onMouseOut={(event) => handleMouseOut(event)}
     >
       {list &&
         list.map((item: ItemProps, index: number) => {
@@ -88,7 +125,9 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
             <div
               className="cart-list"
               key={index}
-              onClick={(event) => startClick(item, event)}
+              data-key={index}
+              data-id={item}
+              // onClick={(event) => startClick(item, event)}
             >
               <input
                 type="checkbox"
@@ -102,7 +141,12 @@ const CartList = ({ checkedAll, list, totalPrice }: IpProps) => {
         })}
       <div
         className="box"
-        style={{ width: style.width + "px", height: style.height + "px" }}
+        style={{
+          width: style.width + "px",
+          height: style.height + "px",
+          left: style.left + "px",
+          top: style.top + "px",
+        }}
       ></div>
     </div>
   );

@@ -64,7 +64,7 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <div className="cart">
       <CartContext.Provider value={{ setcheckedAll, setList, setTotalPrice }}>
         <CartList checkedAll={checkedAll} list={list} totalPrice={totalPrice} />
       </CartContext.Provider>
