@@ -14,3 +14,6 @@
   .site-layout-background {
     background: #fff;
   }
+  .ant-layout.ant-layout-has-sider{
+    height:calc(100vh - 64px)
+}
